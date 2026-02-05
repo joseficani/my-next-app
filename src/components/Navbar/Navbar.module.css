@@ -1,4 +1,4 @@
-.header {
+/* .header {
   position: sticky;
   top: 0;
   z-index: 999;
@@ -8,7 +8,7 @@
 }
 
 .nav {
-  max-width: 1120px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 14px 16px;
   display: flex;
@@ -60,4 +60,4 @@
   .links {
     display: none;
   }
-}
+} */

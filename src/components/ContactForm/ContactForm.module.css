@@ -1,4 +1,4 @@
-.section {
+/* .section {
   display: grid;
   gap: 18px;
 }
@@ -79,4 +79,4 @@
   .row {
     grid-template-columns: 1fr;
   }
-}
+} */
