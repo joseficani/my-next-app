@@ -83,7 +83,7 @@ const cards = [
 export default function Features() {
   return (
     <section id="features" className="py-12">
-   <div className="container px-6 lg:px-10">
+  <div className="container mx-auto px-4 sm:px-6">
         <div className="mb-6">
           <h2 className="text-xl font-extrabold text-mainText">Our Core Features</h2>
           <p className="mt-1 text-sm text-mutedText">

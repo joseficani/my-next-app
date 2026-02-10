@@ -13,6 +13,8 @@
   --color-primaryHover: #2563eb;
 
   --container-2xl: 1200px;
+  --container-center: true;
+
 }
 
 * { box-sizing: border-box; }

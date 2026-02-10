@@ -58,36 +58,39 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-softBorder bg-customBlue/90 backdrop-blur">
-        <div className="container px-4 py-4 sm:px-6">
-          <div className="flex items-center justify-between">
-            <a
-              href="/"
-              className="text-lg font-extrabold tracking-tight text-mainText"
-              onClick={closeMenu}
-            >
-              MySite
-            </a>
+     <header className="sticky top-0 z-50 border-b border-softBorder bg-customBlue/90 backdrop-blur">
+  <div className="container mx-auto px-4 sm:px-6">
+    <div className="flex items-center justify-between py-4">
+      <a href="/" className="text-lg font-extrabold tracking-tight text-mainText">
+        MySite
+      </a>
 
-            <ul className="hidden items-center gap-6 md:flex">
-              <li>
-                <a href="/features" className={linkClass("/features")}>
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className={linkClass("/contact")}>
-                  Contact
-                </a>
-              </li>
-            </ul>
+      <ul className="hidden items-center gap-6 md:flex">
+        <li>
+          <a
+            href="/features"
+            className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
+          >
+            Features
+          </a>
+        </li>
+        <li>
+          <a
+            href="/contact"
+            className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
 
-            <a
-              href="/"
-              className="hidden md:block rounded-xl bg-gradient-to-r from-primary to-primaryHover px-4 py-2 text-sm font-semibold text-mainText shadow-lg shadow-primary/30"
-            >
-              Get Started
-            </a>
+      <a
+        href="/"
+        className="hidden md:block rounded-xl bg-gradient-to-r from-primary to-primaryHover px-4 py-2 text-sm font-semibold text-mainText shadow-lg shadow-primary/30"
+      >
+        Get Started
+      </a>
+   
 
             <button
               type="button"
@@ -104,7 +107,7 @@ export default function Navbar() {
 
       {open && (
         <div className="fixed inset-0 z-[60] bg-customBlue md:hidden">
-          <div className="container px-4 py-4 sm:px-6">
+         <div className="container mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between">
               <a
                 href="/"
