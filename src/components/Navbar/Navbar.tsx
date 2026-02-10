@@ -30,48 +30,71 @@
 // }
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const closeMenu = () => setOpen(false);
+
+  const isActive = (path: string) => pathname === path;
+
+  const linkClass = (path: string) =>
+    [
+      "rounded-lg px-3 py-2 text-sm transition",
+      isActive(path)
+        ? "text-mainText underline underline-offset-8 decoration-primary"
+        : "text-mutedText hover:bg-customCard hover:text-mainText",
+    ].join(" ");
+
+  const mobileLinkClass = (path: string) =>
+    [
+      "text-2xl font-semibold transition",
+      isActive(path)
+        ? "text-mainText underline underline-offset-8 decoration-primary"
+        : "text-mainText hover:opacity-90",
+    ].join(" ");
 
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-softBorder bg-customBlue/90 backdrop-blur">
-        <div className="mx-auto w-full max-w-[1200px] px-4 py-4 sm:px-6">
+        <div className="container px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
             <a
               href="/"
               className="text-lg font-extrabold tracking-tight text-mainText"
+              onClick={closeMenu}
             >
               MySite
             </a>
+
             <ul className="hidden items-center gap-6 md:flex">
               <li>
-                <a
-                  href="#features"
-                  className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
-                >
+                <a href="/features" className={linkClass("/features")}>
                   Features
                 </a>
               </li>
               <li>
-                <a
-                  href="#contact"
-                  className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
-                >
+                <a href="/contact" className={linkClass("/contact")}>
                   Contact
                 </a>
               </li>
             </ul>
+
             <a
-              href="#contact"
+              href="/"
               className="hidden md:block rounded-xl bg-gradient-to-r from-primary to-primaryHover px-4 py-2 text-sm font-semibold text-mainText shadow-lg shadow-primary/30"
             >
               Get Started
             </a>
+
             <button
+              type="button"
               className="md:hidden text-mainText"
-              onClick={() => setOpen(!open)}
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
             >
               {open ? "✕" : "☰"}
             </button>
@@ -81,35 +104,34 @@ export default function Navbar() {
 
       {open && (
         <div className="fixed inset-0 z-[60] bg-customBlue md:hidden">
-          <div className="flex items-center justify-between px-4 py-4">
-            <a
-              href="/"
-              className="text-lg font-extrabold text-mainText"
-              onClick={() => setOpen(false)}
-            >
-              MySite
-            </a>
-            <button
-              className="text-mainText text-2xl"
-              onClick={() => setOpen(false)}
-            >
-              ✕
-            </button>
-          </div>
-          <div className="flex h-[80%] items-center justify-center">
-            <div className="flex flex-col items-center gap-8 text-center">
+          <div className="container px-4 py-4 sm:px-6">
+            <div className="flex items-center justify-between">
               <a
-                href="#features"
-                className="text-2xl font-semibold text-mainText"
-                onClick={() => setOpen(false)}
+                href="/"
+                className="text-lg font-extrabold tracking-tight text-mainText"
+                onClick={closeMenu}
               >
+                MySite
+              </a>
+
+              <button
+                type="button"
+                className="text-mainText text-2xl"
+                onClick={closeMenu}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <div className="flex h-[calc(100vh-72px)] items-center justify-center">
+            <div className="flex flex-col items-center gap-8 text-center">
+              <a href="/features" className={mobileLinkClass("/features")} onClick={closeMenu}>
                 Features
               </a>
-              <a
-                href="#contact"
-                className="text-2xl font-semibold text-mainText"
-                onClick={() => setOpen(false)}
-              >
+
+              <a href="/contact" className={mobileLinkClass("/contact")} onClick={closeMenu}>
                 Contact
               </a>
             </div>

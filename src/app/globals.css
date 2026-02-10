@@ -11,16 +11,13 @@
 
   --color-primary: #3b82f6;
   --color-primaryHover: #2563eb;
-}
-* {
-  box-sizing: border-box;
+
+  --container-2xl: 1200px;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
 
 body {
   background: var(--color-customBlue);
