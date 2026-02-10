@@ -61,62 +61,50 @@
 // }
 export default function ContactForm() {
   return (
-    <section id="contact" className="mx-auto max-w-[1200px] px-4 py-14">
-      <div className="mb-6 text-left">
-        <h2 className="mb-1 text-2xl font-extrabold text-white">Contact</h2>
-        <p className="text-white/70">Send a message</p>
-      </div>
+    <section id="contact" className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="mb-6">
+          <h2 className="text-2xl font-extrabold text-mainText">Contact</h2>
+          <p className="text-mutedText">Send a message</p>
+        </div>
 
-      <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-6">
-        <form className="grid w-full gap-5">
-          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="grid gap-2">
-              <label htmlFor="name" className="text-sm text-white/70">
-                Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Your name"
-                required
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-500/60"
+        <div className="rounded-2xl border border-softBorder bg-customCard/60 p-6">
+          <form className="grid gap-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <label className="text-sm text-mutedText">Name</label>
+                <input
+                  className="mt-1 w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-3 text-mainText outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm text-mutedText">Email</label>
+                <input
+                  className="mt-1 w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-3 text-mainText outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
+                  placeholder="you@email.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm text-mutedText">Message</label>
+              <textarea
+                rows={5}
+                className="mt-1 w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-3 text-mainText outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
+                placeholder="Write your message..."
               />
             </div>
 
-            <div className="grid gap-2">
-              <label htmlFor="email" className="text-sm text-white/70">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="you@email.com"
-                required
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-500/60"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-2">
-            <label htmlFor="message" className="text-sm text-white/70">
-              Message
-            </label>
-            <textarea
-              id="message"
-              rows={5}
-              placeholder="Write your message..."
-              required
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-500/60"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-fit rounded-xl bg-violet-600 px-6 py-3 text-sm font-extrabold text-white transition hover:-translate-y-[1px] hover:bg-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-400/60"
-          >
-            Send Message
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="mt-2 w-full rounded-xl bg-gradient-to-r from-primary to-primaryHover px-6 py-3 font-bold text-mainText shadow-lg shadow-primary/30 transition hover:-translate-y-0.5 hover:shadow-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   );

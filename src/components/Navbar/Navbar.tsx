@@ -30,17 +30,17 @@
 // }
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-[999] border-b border-white/10 bg-[#0b1220]/90 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-3">
-        <a href="/" className="text-lg font-extrabold tracking-tight text-white">
+    <header className="sticky top-0 z-50 border-b border-softBorder bg-customBlue/90 backdrop-blur">
+      <div className="container mx-auto flex items-center justify-between px-4 py-4">
+        <a href="/" className="text-lg font-extrabold tracking-tight text-mainText">
           MySite
         </a>
 
-        <ul className="hidden items-center gap-4 md:flex">
+        <ul className="hidden items-center gap-6 md:flex">
           <li>
             <a
               href="#features"
-              className="rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/5 hover:text-white"
+              className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
             >
               Features
             </a>
@@ -49,7 +49,7 @@ export default function Navbar() {
           <li>
             <a
               href="#contact"
-              className="rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/5 hover:text-white"
+              className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
             >
               Contact
             </a>
@@ -58,11 +58,11 @@ export default function Navbar() {
 
         <a
           href="#contact"
-          className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-[1px] hover:bg-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-400/60"
+          className="rounded-xl bg-gradient-to-r from-primary to-primaryHover px-4 py-2 text-sm font-semibold text-mainText shadow-lg shadow-primary/30 transition hover:-translate-y-0.5 hover:shadow-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
         >
           Get Started
         </a>
-      </nav>
+      </div>
     </header>
   );
 }

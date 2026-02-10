@@ -27,33 +27,33 @@
 // }
 export default function Hero() {
   return (
-    <section className="relative grid min-h-[320px] items-center overflow-hidden rounded-2xl border border-white/15 bg-[url('/images/home.jpg')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-black/40" />
+    <section className="relative grid min-h-[320px] items-center overflow-hidden rounded-2xl border border-softBorder bg-[url('/images/home.jpg')] bg-cover bg-center">
+      <div className="absolute inset-0 bg-black/20" />
 
       <div className="relative max-w-2xl px-6 py-12 sm:px-10 sm:py-16">
-        <p className="mb-4 inline-flex rounded-full border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/75">
+        <p className="mb-4 inline-flex rounded-full border border-softBorder bg-customCard/60 px-3 py-2 text-sm text-mutedText">
           Simple • Clean • Next.js
         </p>
 
-        <h1 className="mb-3 text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+        <h1 className="mb-3 text-4xl font-extrabold leading-tight text-mainText sm:text-5xl">
           Build a modern website layout
         </h1>
 
-        <p className="mb-6 max-w-xl text-base leading-relaxed text-white/75">
+        <p className="mb-6 max-w-xl text-base leading-relaxed text-mutedText">
           Menu, banner, cards, form, and footer — all split into components.
         </p>
 
         <div className="flex flex-wrap gap-3">
           <a
             href="#contact"
-            className="inline-flex items-center justify-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-400/60 focus:ring-offset-2 focus:ring-offset-black"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primaryHover px-5 py-3 text-sm font-semibold text-mainText shadow-lg shadow-primary/30 transition hover:-translate-y-0.5 hover:shadow-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
             Contact Us
           </a>
 
           <a
             href="#features"
-            className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/25 focus:ring-offset-2 focus:ring-offset-black"
+            className="inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText transition hover:bg-customCard focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
             View Features
           </a>

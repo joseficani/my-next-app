@@ -31,7 +31,7 @@ export default function Home() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-[#0b1220]">
+      <main className="bg-customBlue">
         <Hero />
         <Features />
         <ContactForm />
