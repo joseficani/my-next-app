@@ -49,14 +49,20 @@
 //     </>
 //   );
 // }
-// src/app/features/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
+
+type FeatureCard = {
+  image: string;
+  title: string;
+  text: string;
+  category: string;
+};
 
 export default function FeaturesPage() {
   const featuresBanner = {
@@ -79,26 +85,106 @@ export default function FeaturesPage() {
     secondaryBtnClass:
       "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
   };
-
-  const featuresCards = [
+  const allFeatureCards: FeatureCard[] = [
     {
       image: "/images/teamwork.jpg",
       title: "Pure Development",
       text: "Use one banner and one grid across multiple pages.",
+      category: "Development",
     },
     {
       image: "/images/coding.jpg",
       title: "Fast Development",
       text: "Clean structure, Modern UI, and predictable layout.",
+      category: "Development",
     },
     {
       image: "/images/design.jpg",
       title: "Responsive UI",
       text: "The Tailwind container keeps everything aligned on every screen.",
+      category: "UI",
+    },
+
+    {
+      image: "/images/coding.jpg",
+      title: "Simple Navigation",
+      text: "Clear pages (Home, Features, Contact) with a reusable navbar.",
+      category: "Navigation",
+    },
+    {
+      image: "/images/teamwork.jpg",
+      title: "Reusable Components",
+      text: "One dynamic banner component with different content per page.",
+      category: "Components",
+    },
+    {
+      image: "/images/design.jpg",
+      title: "Clean Layout",
+      text: "Consistent spacing and container alignment across sections.",
+      category: "UI",
+    },
+
+    {
+      image: "/images/teamwork.jpg",
+      title: "Team Collaboration",
+      text: "Work faster with clear structure and shared components.",
+      category: "Collaboration",
+    },
+    {
+      image: "/images/coding.jpg",
+      title: "Maintainable Code",
+      text: "Predictable files and reusable UI blocks for easy updates.",
+      category: "Development",
+    },
+    {
+      image: "/images/design.jpg",
+      title: "Modern Styling",
+      text: "Hover states and soft borders for a modern look and feel.",
+      category: "UI",
     },
   ];
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const options = ["Pure Development", "Fast Development", "Responsive UI", "Team Collaboration", "Modern UI", ];
+  const categories = useMemo(() => {
+    return Array.from(new Set(allFeatureCards.map((c) => c.category))).sort();
+  }, [allFeatureCards]);
+
+  const filteredCards = useMemo(() => {
+    let list = [...allFeatureCards];
+
+    if (selectedCategory !== "all") {
+      list = list.filter((x) => x.category === selectedCategory);
+    }
+    return list.map((x) => ({
+      image: x.image,
+      title: x.title,
+      text: x.text,
+    }));
+  }, [allFeatureCards, selectedCategory]);
+
+  const rightSlot = (
+    <div className="grid gap-2">
+      <select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+        className="w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-2 text-sm text-mainText outline-none transition focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
+      >
+        <option value="all">Filter by Category</option>
+        {categories.map((c) => (
+          <option key={c} value={c}>
+            {c}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+  const options = [
+    "Pure Development",
+    "Fast Development",
+    "Responsive UI",
+    "Team Collaboration",
+    "Modern UI",
+  ];
 
   const [selected, setSelected] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<string[]>([]);
@@ -120,14 +206,13 @@ export default function FeaturesPage() {
 
       <main className="min-h-screen bg-customBlue">
         <PageBanner {...featuresBanner} />
-
         <InfoGrid
           sectionTitle="Our Features"
           sectionSubtitle="3 main blocks (dynamic content)."
-          cards={featuresCards}
+          cards={filteredCards}
           cardClass="overflow-hidden rounded-2xl border border-softBorder bg-customCard/70 transition hover:bg-customCard/80"
+          rightSlot={rightSlot}
         />
-
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">

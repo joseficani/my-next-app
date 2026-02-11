@@ -34,6 +34,7 @@
 //     </section>
 //   );
 // }
+import type { ReactNode } from "react";
 
 type Card = {
   image: string;
@@ -46,6 +47,7 @@ type InfoGridProps = {
   sectionSubtitle?: string;
   cards: Card[];
   cardClass?: string;
+  rightSlot?: ReactNode;
 };
 
 export default function InfoGrid({
@@ -53,21 +55,31 @@ export default function InfoGrid({
   sectionSubtitle,
   cards,
   cardClass = "",
+  rightSlot,
 }: InfoGridProps) {
   return (
     <section className="py-14">
       <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
-        <div className="mb-8 max-w-2xl">
-          <h2 className="text-2xl font-extrabold text-mainText">
-            {sectionTitle}
-          </h2>
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-extrabold text-mainText">
+              {sectionTitle}
+            </h2>
 
-          {sectionSubtitle && (
-            <p className="mt-1 text-sm text-mutedText">
-              {sectionSubtitle}
-            </p>
+            {sectionSubtitle && (
+              <p className="mt-1 text-sm text-mutedText">
+                {sectionSubtitle}
+              </p>
+            )}
+          </div>
+
+          {rightSlot && (
+            <div className="w-full sm:w-[260px]">
+              {rightSlot}
+            </div>
           )}
         </div>
+
         <div className="grid gap-6 md:grid-cols-3">
           {cards.map((card, index) => (
             <article
