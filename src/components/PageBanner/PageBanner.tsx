@@ -54,21 +54,23 @@
 //     </section>
 //   );
 // }
+
 type PageBannerProps = {
   bgImage: string;
-  badge: string;
+  badge?: string;
   title: string;
   subtitle: string;
 
-  primaryText: string;
-  primaryHref: string;
-  secondaryText: string;
-  secondaryHref: string;
+  primaryText?: string;
+  primaryHref?: string;
+  secondaryText?: string;
+  secondaryHref?: string;
 
   primaryBtnClass?: string;
   secondaryBtnClass?: string;
 
-  center?: boolean; 
+  center?: boolean;
+  tight?: boolean;
 };
 
 export default function PageBanner({
@@ -83,59 +85,57 @@ export default function PageBanner({
   primaryBtnClass,
   secondaryBtnClass,
   center = false,
+  tight = false,
 }: PageBannerProps) {
+  const defaultPrimary =
+    "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primaryHover px-5 py-3 text-sm font-semibold text-mainText shadow-lg shadow-primary/30 transition hover:-translate-y-0.5 hover:shadow-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/40";
+
+  const defaultSecondary =
+    "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20";
+
   return (
     <section
       className="relative w-full overflow-hidden border-y border-softBorder bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="absolute inset-0 bg-black/25" />
+      <div className="absolute inset-0 bg-black/35" />
+  <div className="relative mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 sm:py-20">
+        <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-2xl text-left"}>
+          {badge && (
+            <div className={center ? "mb-4 flex justify-center" : "mb-4"}>
+              <span className="inline-flex rounded-full border border-softBorder bg-customCard/60 px-3 py-2 text-sm text-mutedText backdrop-blur">
+                {badge}
+              </span>
+            </div>
+          )}
 
-      <div className="container mx-auto px-4 py-14 sm:px-6 sm:py-20">
-        <div
-          className={`
-            mx-auto max-w-2xl
-            ${center ? "text-center" : "text-left"}
-          `}
-        >
-          <p className="mb-4 inline-flex rounded-full border border-softBorder bg-customCard/60 px-3 py-2 text-sm text-mutedText backdrop-blur">
-            {badge}
-          </p>
-
-          <h1 className="mb-3 text-4xl font-extrabold leading-tight text-mainText sm:text-5xl">
+          <h1 className={`text-4xl font-extrabold leading-tight text-mainText sm:text-5xl ${tight ? "mb-1" : "mb-3"}`}>
             {title}
           </h1>
 
-          <p className="mb-6 max-w-xl text-base leading-relaxed text-mutedText">
+          <p
+            className={`text-base leading-relaxed text-mutedText ${tight ? "mb-5" : "mb-6"} ${
+              center ? "mx-auto max-w-xl" : "max-w-xl"
+            }`}
+          >
             {subtitle}
           </p>
 
-          <div
-            className={`
-              flex flex-wrap gap-3
-              ${center ? "justify-center" : "justify-start"}
-            `}
-          >
-            <a
-              href={primaryHref}
-              className={
-                primaryBtnClass ||
-                "rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white"
-              }
-            >
-              {primaryText}
-            </a>
+          {(primaryText || secondaryText) && (
+            <div className={`flex flex-wrap gap-3 ${center ? "justify-center" : ""}`}>
+              {primaryText && primaryHref && (
+                <a href={primaryHref} className={primaryBtnClass ?? defaultPrimary}>
+                  {primaryText}
+                </a>
+              )}
 
-            <a
-              href={secondaryHref}
-              className={
-                secondaryBtnClass ||
-                "rounded-xl border border-softBorder px-5 py-3 text-sm font-semibold text-mainText"
-              }
-            >
-              {secondaryText}
-            </a>
-          </div>
+              {secondaryText && secondaryHref && (
+                <a href={secondaryHref} className={secondaryBtnClass ?? defaultSecondary}>
+                  {secondaryText}
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

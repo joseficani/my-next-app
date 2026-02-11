@@ -55,25 +55,28 @@ import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
 
 export default function FeaturesPage() {
-  const featuresBanner = {
-    bgImage: "/images/features-hero.jpg",
-    badge: "Explore • Components • UI",
-    title: "Features that make your site look modern",
-    subtitle:
-      "Same layout, responsive container, clean design, and reusable components.",
+const featuresBanner = {
+  bgImage: "/images/features-hero.jpg",
+  badge: "Explore • Components • UI",
+  title: "Features that make your site look modern",
+  subtitle:
+    "Same layout, responsive container, clean design, and reusable components.",
 
-    primaryText: "Go to Contact",
-    primaryHref: "/contact",
-    secondaryText: "Back Home",
-    secondaryHref: "/",
+  primaryText: "Go to Contact",
+  primaryHref: "/contact",
+  secondaryText: "Back Home",
+  secondaryHref: "/",
+  center: true,
+  tight: true,
 
-    primaryBtnClass:
-      "inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40",
-    secondaryBtnClass:
-      "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20",
+  primaryBtnClass:
+    "inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40",
 
-    center: true, 
-  };
+  secondaryBtnClass:
+    "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
+};
+
+
 
   const featuresCards = [
     {

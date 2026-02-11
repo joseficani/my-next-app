@@ -61,10 +61,12 @@
 // }
 export default function ContactForm() {
   return (
-    <section id="contact" className="py-5">
-     <div className="container mx-auto px-4 sm:px-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-extrabold text-mainText">Contact</h2>
+    <section id="contact" className="py-14">
+      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <div className="mb-6 max-w-2xl">
+          <h2 className="text-2xl font-extrabold text-mainText">
+            Contact
+          </h2>
           <p className="text-mutedText">Send a message</p>
         </div>
 
@@ -72,31 +74,34 @@ export default function ContactForm() {
           <form className="grid gap-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="text-sm text-mutedText">Name</label>
+                <label className="text-sm text-mutedText">
+                  Name
+                </label>
                 <input
                   className="mt-1 w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-3 text-mainText outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
                   placeholder="Your name"
                 />
               </div>
-
               <div>
-                <label className="text-sm text-mutedText">Email</label>
+                <label className="text-sm text-mutedText">
+                  Email
+                </label>
                 <input
                   className="mt-1 w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-3 text-mainText outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
                   placeholder="you@email.com"
                 />
               </div>
             </div>
-
             <div>
-              <label className="text-sm text-mutedText">Message</label>
+              <label className="text-sm text-mutedText">
+                Message
+              </label>
               <textarea
                 rows={5}
                 className="mt-1 w-full rounded-xl border border-softBorder bg-customCard/60 px-4 py-3 text-mainText outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
                 placeholder="Write your message..."
               />
             </div>
-
             <button
               type="submit"
               className="mt-2 w-full rounded-xl bg-gradient-to-r from-primary to-primaryHover px-6 py-3 font-bold text-mainText shadow-lg shadow-primary/30 transition hover:-translate-y-0.5 hover:shadow-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/40"

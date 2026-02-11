@@ -25,13 +25,12 @@
 //     </section>
 //   );
 // }
-// src/components/Hero/Hero.tsx
+
 export default function Hero() {
   return (
     <section className="relative w-full overflow-hidden border-y border-softBorder bg-[url('/images/home.jpg')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-black/25" />
-
-      <div className="relative container mx-auto px-4 py-14 sm:px-6 sm:py-20">
+      <div className="absolute inset-0 bg-black/35" />
+      <div className="relative mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 sm:py-20">
         <div className="max-w-2xl">
           <p className="mb-4 inline-flex rounded-full border border-softBorder bg-customCard/60 px-3 py-2 text-sm text-mutedText backdrop-blur">
             Simple • Clean • Next.js

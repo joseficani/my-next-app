@@ -35,7 +35,6 @@
 //   );
 // }
 
-
 type Card = {
   image: string;
   title: string;
@@ -44,44 +43,56 @@ type Card = {
 
 type InfoGridProps = {
   sectionTitle: string;
-  sectionSubtitle: string;
+  sectionSubtitle?: string;
   cards: Card[];
-  cardClass: string;
+  cardClass?: string;
 };
 
 export default function InfoGrid({
   sectionTitle,
   sectionSubtitle,
   cards,
-  cardClass,
+  cardClass = "",
 }: InfoGridProps) {
   return (
-    <section className="container mx-auto px-4 py-14 sm:px-6">
-      <div className="max-w-2xl">
-        <h2 className="text-2xl font-bold text-mainText">
-          {sectionTitle}
-        </h2>
-        <p className="text-mutedText">{sectionSubtitle}</p>
-      </div>
+    <section className="py-14">
+      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <div className="mb-8 max-w-2xl">
+          <h2 className="text-2xl font-extrabold text-mainText">
+            {sectionTitle}
+          </h2>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
-        {cards.map((card, i) => (
-          <div key={i} className={cardClass}>
-            <img
-              src={card.image}
-              alt={card.title}
-              className="h-40 w-full object-cover"
-            />
-            <div className="p-4">
-              <h3 className="font-semibold text-mainText">
-                {card.title}
-              </h3>
-              <p className="text-sm text-mutedText">
-                {card.text}
-              </p>
-            </div>
-          </div>
-        ))}
+          {sectionSubtitle && (
+            <p className="mt-1 text-sm text-mutedText">
+              {sectionSubtitle}
+            </p>
+          )}
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {cards.map((card, index) => (
+            <article
+              key={index}
+              className={`overflow-hidden rounded-2xl border border-softBorder bg-customCard/60 transition hover:bg-customCard/80 ${cardClass}`}
+            >
+              <div className="h-44 w-full overflow-hidden">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
+              <div className="p-5">
+                <h3 className="text-base font-semibold text-mainText">
+                  {card.title}
+                </h3>
+                <p className="mt-1 text-sm text-mutedText">
+                  {card.text}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
