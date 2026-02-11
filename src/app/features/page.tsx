@@ -49,6 +49,7 @@
 //     </>
 //   );
 // }
+
 "use client";
 
 import { useMemo, useState } from "react";
@@ -62,6 +63,8 @@ type FeatureCard = {
   title: string;
   text: string;
   category: string;
+  detailsTitle: string;
+  detailsText: string;
 };
 
 export default function FeaturesPage() {
@@ -85,64 +88,91 @@ export default function FeaturesPage() {
     secondaryBtnClass:
       "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
   };
+
   const allFeatureCards: FeatureCard[] = [
     {
       image: "/images/teamwork.jpg",
       title: "Pure Development",
       text: "Use one banner and one grid across multiple pages.",
       category: "Development",
+      detailsTitle: "Pure Development",
+      detailsText:
+        "This feature focuses on clean structure and reusable UI so you can update the project faster without breaking layout. It keeps your components consistent across pages.",
     },
     {
       image: "/images/coding.jpg",
       title: "Fast Development",
       text: "Clean structure, Modern UI, and predictable layout.",
       category: "Development",
+      detailsTitle: "Fast Development",
+      detailsText:
+        "A predictable folder structure + reusable components makes edits quick. You can add new sections, pages, and styles without rewriting everything.",
     },
     {
       image: "/images/design.jpg",
       title: "Responsive UI",
       text: "The Tailwind container keeps everything aligned on every screen.",
       category: "UI",
+      detailsTitle: "Responsive UI",
+      detailsText:
+        "Your layout stays aligned on desktop, tablet, and mobile. The max-width container ensures the banner text lines up with the sections below.",
     },
-
     {
       image: "/images/coding.jpg",
       title: "Simple Navigation",
       text: "Clear pages (Home, Features, Contact) with a reusable navbar.",
       category: "Navigation",
+      detailsTitle: "Simple Navigation",
+      detailsText:
+        "Users can move between pages quickly. Your active-link styling makes it clear which page they are currently viewing.",
     },
     {
       image: "/images/teamwork.jpg",
       title: "Reusable Components",
       text: "One dynamic banner component with different content per page.",
       category: "Components",
+      detailsTitle: "Reusable Components",
+      detailsText:
+        "Instead of creating 3 different banners, you pass props (image, title, buttons, classes). This keeps the code clean and scalable.",
     },
     {
       image: "/images/design.jpg",
       title: "Clean Layout",
       text: "Consistent spacing and container alignment across sections.",
       category: "UI",
+      detailsTitle: "Clean Layout",
+      detailsText:
+        "Spacing stays consistent because each section uses the same container width and padding. This gives your UI a professional feel.",
     },
-
     {
       image: "/images/teamwork.jpg",
       title: "Team Collaboration",
       text: "Work faster with clear structure and shared components.",
       category: "Collaboration",
+      detailsTitle: "Team Collaboration",
+      detailsText:
+        "When multiple people work on the project, shared components avoid duplication and reduce bugs. Everyone follows the same UI rules.",
     },
     {
       image: "/images/coding.jpg",
       title: "Maintainable Code",
       text: "Predictable files and reusable UI blocks for easy updates.",
       category: "Development",
+      detailsTitle: "Maintainable Code",
+      detailsText:
+        "Your code is easier to maintain because it’s modular. Updating one component updates multiple pages automatically.",
     },
     {
       image: "/images/design.jpg",
       title: "Modern Styling",
       text: "Hover states and soft borders for a modern look and feel.",
       category: "UI",
+      detailsTitle: "Modern Styling",
+      detailsText:
+        "Subtle hover effects, soft borders, and consistent cards make the UI feel modern while staying readable and clean.",
     },
   ];
+
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const categories = useMemo(() => {
@@ -155,10 +185,13 @@ export default function FeaturesPage() {
     if (selectedCategory !== "all") {
       list = list.filter((x) => x.category === selectedCategory);
     }
+
     return list.map((x) => ({
       image: x.image,
       title: x.title,
       text: x.text,
+      detailsTitle: x.detailsTitle,
+      detailsText: x.detailsText,
     }));
   }, [allFeatureCards, selectedCategory]);
 
@@ -178,6 +211,7 @@ export default function FeaturesPage() {
       </select>
     </div>
   );
+
   const options = [
     "Pure Development",
     "Fast Development",
@@ -206,6 +240,7 @@ export default function FeaturesPage() {
 
       <main className="min-h-screen bg-customBlue">
         <PageBanner {...featuresBanner} />
+
         <InfoGrid
           sectionTitle="Our Features"
           sectionSubtitle="3 main blocks (dynamic content)."
@@ -213,6 +248,7 @@ export default function FeaturesPage() {
           cardClass="overflow-hidden rounded-2xl border border-softBorder bg-customCard/70 transition hover:bg-customCard/80"
           rightSlot={rightSlot}
         />
+
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
