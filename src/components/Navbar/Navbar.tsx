@@ -37,60 +37,50 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const closeMenu = () => setOpen(false);
-
   const isActive = (path: string) => pathname === path;
-
+  
   const linkClass = (path: string) =>
     [
-      "rounded-lg px-3 py-2 text-sm transition",
-      isActive(path)
-        ? "text-mainText underline underline-offset-8 decoration-primary"
-        : "text-mutedText hover:bg-customCard hover:text-mainText",
+      "cursor-pointer rounded-lg px-3 py-2 text-sm transition",
+      "hover:bg-white/10 hover:text-mainText",
+      isActive(path) ? "bg-white/10 text-mainText" : "text-mutedText",
     ].join(" ");
 
   const mobileLinkClass = (path: string) =>
     [
-      "text-2xl font-semibold transition",
-      isActive(path)
-        ? "text-mainText underline underline-offset-8 decoration-primary"
-        : "text-mainText hover:opacity-90",
+      "cursor-pointer text-2xl font-semibold transition",
+      "hover:bg-white/10 hover:text-mainText rounded-xl px-4 py-2",
+      isActive(path) ? "bg-white/10 text-mainText" : "text-mainText/90",
     ].join(" ");
 
   return (
     <>
-     <header className="sticky top-0 z-50 border-b border-softBorder bg-customBlue/90 backdrop-blur">
-  <div className="container mx-auto px-4 sm:px-6">
-    <div className="flex items-center justify-between py-4">
-      <a href="/" className="text-lg font-extrabold tracking-tight text-mainText">
-        MySite
-      </a>
+      <header className="sticky top-0 z-50 border-b border-softBorder bg-customBlue/90 backdrop-blur">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between py-4">
+            <a href="/" className="text-lg font-extrabold tracking-tight text-mainText">
+              MySite
+            </a>
 
-      <ul className="hidden items-center gap-6 md:flex">
-        <li>
-          <a
-            href="/features"
-            className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
-          >
-            Features
-          </a>
-        </li>
-        <li>
-          <a
-            href="/contact"
-            className="rounded-lg px-3 py-2 text-sm text-mutedText transition hover:bg-customCard hover:text-mainText"
-          >
-            Contact
-          </a>
-        </li>
-      </ul>
+            <ul className="hidden items-center gap-6 md:flex">
+              <li>
+                <a href="/features" className={linkClass("/features")}>
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="/contact" className={linkClass("/contact")}>
+                  Contact
+                </a>
+              </li>
+            </ul>
 
-      <a
-        href="/"
-        className="hidden md:block rounded-xl bg-gradient-to-r from-primary to-primaryHover px-4 py-2 text-sm font-semibold text-mainText shadow-lg shadow-primary/30"
-      >
-        Get Started
-      </a>
-   
+            <a
+              href="/"
+              className="hidden md:block rounded-xl bg-gradient-to-r from-primary to-primaryHover px-4 py-2 text-sm font-semibold text-mainText shadow-lg shadow-primary/30"
+            >
+              Get Started
+            </a>
 
             <button
               type="button"
@@ -107,7 +97,7 @@ export default function Navbar() {
 
       {open && (
         <div className="fixed inset-0 z-[60] bg-customBlue md:hidden">
-         <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between">
               <a
                 href="/"
@@ -129,7 +119,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex h-[calc(100vh-72px)] items-center justify-center">
-            <div className="flex flex-col items-center gap-8 text-center">
+            <div className="flex flex-col items-center gap-6 text-center">
               <a href="/features" className={mobileLinkClass("/features")} onClick={closeMenu}>
                 Features
               </a>
