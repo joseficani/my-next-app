@@ -38,14 +38,12 @@ export default function Navbar() {
 
   const closeMenu = () => setOpen(false);
   const isActive = (path: string) => pathname === path;
-  
   const linkClass = (path: string) =>
     [
       "cursor-pointer rounded-lg px-3 py-2 text-sm transition",
       "hover:bg-white/10 hover:text-mainText",
       isActive(path) ? "bg-white/10 text-mainText" : "text-mutedText",
     ].join(" ");
-
   const mobileLinkClass = (path: string) =>
     [
       "cursor-pointer text-2xl font-semibold transition",
@@ -61,7 +59,6 @@ export default function Navbar() {
             <a href="/" className="text-lg font-extrabold tracking-tight text-mainText">
               MySite
             </a>
-
             <ul className="hidden items-center gap-6 md:flex">
               <li>
                 <a href="/features" className={linkClass("/features")}>

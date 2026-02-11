@@ -8,7 +8,7 @@
 //     image: "/images/features-hero.jpg",
 //     badge: "Explore • Components • UI",
 //     title: "Features that make your site look modern",
-//     subtitle: "Same layout, responsive container, clean design, and reusable components.",
+//     subtitle: "Same layout, responsive container, Team Collaboration, and Pure Development.",
 //     buttons: [
 //       { label: "Go to Contact", href: "/contact", variant: "primary" as const },
 //       { label: "Back Home", href: "/", variant: "secondary" as const },
@@ -17,13 +17,13 @@
 //   const cards = [
 //     {
 //       img: "/images/teamwork.jpg",
-//       title: "Reusable Components",
+//       title: "Pure Development",
 //       desc: "Use one banner and one grid across multiple pages.",
 //     },
 //     {
 //       img: "/images/coding.jpg",
 //       title: "Fast Development",
-//       desc: "Clean structure, easy edits, and predictable layout.",
+//       desc: "Clean structure, Modern UI, and predictable layout.",
 //     },
 //     {
 //       img: "/images/design.jpg",
@@ -49,45 +49,47 @@
 //     </>
 //   );
 // }
+// src/app/features/page.tsx
+"use client";
+
+import { useState } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
 
 export default function FeaturesPage() {
-const featuresBanner = {
-  bgImage: "/images/features-hero.jpg",
-  badge: "Explore • Components • UI",
-  title: "Features that make your site look modern",
-  subtitle:
-    "Same layout, responsive container, clean design, and reusable components.",
+  const featuresBanner = {
+    bgImage: "/images/features-hero.jpg",
+    badge: "Explore • Components • UI",
+    title: "Features that make your site look modern",
+    subtitle:
+      "Same layout, responsive container, Team Collaboration, and Pure Development.",
 
-  primaryText: "Go to Contact",
-  primaryHref: "/contact",
-  secondaryText: "Back Home",
-  secondaryHref: "/",
-  center: true,
-  tight: true,
+    primaryText: "Go to Contact",
+    primaryHref: "/contact",
+    secondaryText: "Back Home",
+    secondaryHref: "/",
+    center: true,
+    tight: true,
 
-  primaryBtnClass:
-    "inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40",
+    primaryBtnClass:
+      "inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40",
 
-  secondaryBtnClass:
-    "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
-};
-
-
+    secondaryBtnClass:
+      "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
+  };
 
   const featuresCards = [
     {
       image: "/images/teamwork.jpg",
-      title: "Reusable Components",
+      title: "Pure Development",
       text: "Use one banner and one grid across multiple pages.",
     },
     {
       image: "/images/coding.jpg",
       title: "Fast Development",
-      text: "Clean structure, easy edits, and predictable layout.",
+      text: "Clean structure, Modern UI, and predictable layout.",
     },
     {
       image: "/images/design.jpg",
@@ -95,6 +97,22 @@ const featuresBanner = {
       text: "The Tailwind container keeps everything aligned on every screen.",
     },
   ];
+
+  const options = ["Pure Development", "Fast Development", "Responsive UI", "Team Collaboration", "Modern UI", ];
+
+  const [selected, setSelected] = useState<string[]>([]);
+  const [submitted, setSubmitted] = useState<string[]>([]);
+
+  const toggleOption = (value: string) => {
+    setSelected((prev) =>
+      prev.includes(value) ? prev.filter((x) => x !== value) : [...prev, value]
+    );
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(selected);
+  };
 
   return (
     <>
@@ -109,6 +127,58 @@ const featuresBanner = {
           cards={featuresCards}
           cardClass="overflow-hidden rounded-2xl border border-softBorder bg-customCard/70 transition hover:bg-customCard/80"
         />
+
+        <section className="py-14">
+          <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+            <div className="mb-6 max-w-2xl">
+              <h2 className="text-2xl font-extrabold text-mainText">
+                Choose your favorite features
+              </h2>
+              <p className="text-mutedText">
+                Select one or multiple options, then submit.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-softBorder bg-customCard/60 p-6">
+              <form className="grid gap-4" onSubmit={handleSubmit}>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {options.map((opt) => (
+                    <label
+                      key={opt}
+                      className="flex cursor-pointer items-center gap-3 rounded-xl border border-softBorder bg-customCard/60 p-4 text-mainText transition hover:bg-customCard/80"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selected.includes(opt)}
+                        onChange={() => toggleOption(opt)}
+                        className="h-5 w-5 accent-emerald-500"
+                      />
+                      <span className="text-sm font-semibold">{opt}</span>
+                    </label>
+                  ))}
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-2 w-full rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40"
+                >
+                  Submit
+                </button>
+              </form>
+
+              {submitted.length > 0 && (
+                <div className="mt-6 rounded-xl border border-softBorder bg-customCard/60 p-4">
+                  <p className="text-sm font-semibold text-mainText">
+                    You selected:
+                  </p>
+                  <p className="mt-1 text-sm text-mutedText">
+                    {submitted.join(", ")}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
