@@ -34,7 +34,6 @@
 //     </section>
 //   );
 // }
-
 "use client";
 
 import type { ReactNode } from "react";
@@ -63,9 +62,16 @@ export default function InfoGrid({
   cardClass = "",
   rightSlot,
 }: InfoGridProps) {
-
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   const close = () => setOpenIndex(null);
+
+  const next = () => {
+    if (openIndex === null) return;
+    if (cards.length === 0) return;
+    setOpenIndex((openIndex + 1) % cards.length);
+  };
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -73,7 +79,9 @@ export default function InfoGrid({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
   const activeCard = openIndex !== null ? cards[openIndex] : null;
+
   return (
     <section className="py-14">
       <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
@@ -82,18 +90,21 @@ export default function InfoGrid({
             <h2 className="text-2xl font-extrabold text-mainText">
               {sectionTitle}
             </h2>
+
             {sectionSubtitle && (
               <p className="mt-1 text-sm text-mutedText">
                 {sectionSubtitle}
               </p>
             )}
           </div>
+
           {rightSlot && (
             <div className="w-full sm:w-[260px]">
               {rightSlot}
             </div>
           )}
         </div>
+
         <div className="grid gap-6 md:grid-cols-3">
           {cards.map((card, index) => (
             <article
@@ -107,6 +118,7 @@ export default function InfoGrid({
                   className="h-full w-full object-cover"
                 />
               </div>
+
               <div className="p-5">
                 <h3 className="text-base font-semibold text-mainText">
                   {card.title}
@@ -114,6 +126,7 @@ export default function InfoGrid({
                 <p className="mt-1 text-sm text-mutedText">
                   {card.text}
                 </p>
+
                 {(card.detailsTitle || card.detailsText) && (
                   <button
                     type="button"
@@ -128,6 +141,7 @@ export default function InfoGrid({
           ))}
         </div>
       </div>
+
       {activeCard && (
         <div
           className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 px-4"
@@ -167,10 +181,10 @@ export default function InfoGrid({
               <div className="mt-6 flex justify-end">
                 <button
                   type="button"
-                  onClick={close}
+                  onClick={next}
                   className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gradient-to-r from-primary to-primaryHover px-5 py-2.5 text-sm font-semibold text-mainText shadow-lg shadow-primary/30 transition hover:-translate-y-0.5 hover:shadow-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
                 >
-                  Close
+                  Next feature
                 </button>
               </div>
             </div>
