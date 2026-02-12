@@ -49,7 +49,7 @@
 //     </>
 //   );
 // }
-
+// src/app/features/page.tsx
 "use client";
 
 import { useMemo, useState } from "react";
@@ -57,6 +57,8 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 
 type FeatureCard = {
   image: string;
@@ -211,7 +213,6 @@ export default function FeaturesPage() {
       </select>
     </div>
   );
-
   const options = [
     "Pure Development",
     "Fast Development",
@@ -228,7 +229,6 @@ export default function FeaturesPage() {
       prev.includes(value) ? prev.filter((x) => x !== value) : [...prev, value]
     );
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(selected);
@@ -240,7 +240,6 @@ export default function FeaturesPage() {
 
       <main className="min-h-screen bg-customBlue">
         <PageBanner {...featuresBanner} />
-
         <InfoGrid
           sectionTitle="Our Features"
           sectionSubtitle="3 main blocks (dynamic content)."
@@ -248,7 +247,53 @@ export default function FeaturesPage() {
           cardClass="overflow-hidden rounded-2xl border border-softBorder bg-customCard/70 transition hover:bg-customCard/80"
           rightSlot={rightSlot}
         />
-
+        <section className="py-14">
+          <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+            <div className="mb-6 max-w-2xl">
+              <h2 className="text-2xl font-extrabold text-mainText">
+                Featured Slider
+              </h2>
+              <p className="text-mutedText">
+                Swipe through the features.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-softBorder bg-customCard/40 p-4">
+              <Swiper
+                modules={[Navigation, Pagination]}
+                navigation
+                pagination={{ clickable: true }}
+                spaceBetween={16}
+                slidesPerView={1}
+                breakpoints={{
+                  640: { slidesPerView: 2 },
+                  1024: { slidesPerView: 3 },
+                }}
+              >
+                {filteredCards.map((card, i) => (
+                  <SwiperSlide key={`${card.title}-${i}`}>
+                    <article className="overflow-hidden rounded-2xl border border-softBorder bg-customCard/60 transition hover:bg-customCard/80">
+                      <div className="h-44 w-full overflow-hidden">
+                        <img
+                          src={card.image}
+                          alt={card.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div className="p-5">
+                        <h3 className="text-base font-semibold text-mainText">
+                          {card.title}
+                        </h3>
+                        <p className="mt-1 text-sm text-mutedText">
+                          {card.text}
+                        </p>
+                      </div>
+                    </article>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </div>
+        </section>
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
