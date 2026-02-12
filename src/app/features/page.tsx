@@ -49,7 +49,7 @@
 //     </>
 //   );
 // }
-// src/app/features/page.tsx
+
 "use client";
 
 import { useMemo, useState } from "react";
@@ -213,6 +213,7 @@ export default function FeaturesPage() {
       </select>
     </div>
   );
+
   const options = [
     "Pure Development",
     "Fast Development",
@@ -229,6 +230,7 @@ export default function FeaturesPage() {
       prev.includes(value) ? prev.filter((x) => x !== value) : [...prev, value]
     );
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(selected);
@@ -240,6 +242,7 @@ export default function FeaturesPage() {
 
       <main className="min-h-screen bg-customBlue">
         <PageBanner {...featuresBanner} />
+
         <InfoGrid
           sectionTitle="Our Features"
           sectionSubtitle="3 main blocks (dynamic content)."
@@ -253,25 +256,48 @@ export default function FeaturesPage() {
               <h2 className="text-2xl font-extrabold text-mainText">
                 Featured Slider
               </h2>
-              <p className="text-mutedText">
-                Swipe through the features.
-              </p>
+              <p className="text-mutedText">Swipe through the features.</p>
             </div>
+
             <div className="rounded-2xl border border-softBorder bg-customCard/40 p-4">
+              <div className="mb-4 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  className="features-prev inline-flex h-10 w-10 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  aria-label="Previous"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="features-next inline-flex h-10 w-10 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  aria-label="Next"
+                >
+                  ›
+                </button>
+              </div>
+
               <Swiper
                 modules={[Navigation, Pagination]}
-                navigation
-                pagination={{ clickable: true }}
+                navigation={{
+                  prevEl: ".features-prev",
+                  nextEl: ".features-next",
+                }}
+                pagination={{
+                  clickable: true,
+                  el: ".features-swiper-pagination",
+                }}
                 spaceBetween={16}
                 slidesPerView={1}
                 breakpoints={{
                   640: { slidesPerView: 2 },
                   1024: { slidesPerView: 3 },
                 }}
+                className="features-swiper"
               >
                 {filteredCards.map((card, i) => (
                   <SwiperSlide key={`${card.title}-${i}`}>
-                    <article className="overflow-hidden rounded-2xl border border-softBorder bg-customCard/60 transition hover:bg-customCard/80">
+                    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-softBorder bg-customCard/60 transition hover:bg-customCard/80">
                       <div className="h-44 w-full overflow-hidden">
                         <img
                           src={card.image}
@@ -279,21 +305,23 @@ export default function FeaturesPage() {
                           className="h-full w-full object-cover"
                         />
                       </div>
-                      <div className="p-5">
+
+                      <div className="flex flex-1 flex-col p-5">
                         <h3 className="text-base font-semibold text-mainText">
                           {card.title}
                         </h3>
-                        <p className="mt-1 text-sm text-mutedText">
-                          {card.text}
-                        </p>
+                        <p className="mt-1 text-sm text-mutedText">{card.text}</p>
+                        <div className="mt-auto" />
                       </div>
                     </article>
                   </SwiperSlide>
                 ))}
               </Swiper>
+              <div className="features-swiper-pagination mt-5 flex items-center justify-center" />
             </div>
           </div>
         </section>
+
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
@@ -345,6 +373,44 @@ export default function FeaturesPage() {
             </div>
           </div>
         </section>
+        <style jsx global>{`
+          .features-swiper .swiper-wrapper {
+            align-items: stretch;
+          }
+          .features-swiper .swiper-slide {
+            height: auto;
+            display: flex;
+          }
+          .features-swiper .swiper-slide > * {
+            width: 100%;
+          }
+
+          .features-swiper-pagination .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.25);
+            opacity: 1;
+            margin: 0 6px !important;
+            transition: transform 200ms ease, background 200ms ease;
+          }
+
+          .features-swiper-pagination .swiper-pagination-bullet:hover {
+            transform: scale(1.15);
+            background: rgba(255, 255, 255, 0.4);
+          }
+
+          .features-swiper-pagination .swiper-pagination-bullet-active {
+            width: 22px;
+            background: rgba(59, 130, 246, 0.9); /* blue-ish */
+          }
+
+          .features-prev.swiper-button-disabled,
+          .features-next.swiper-button-disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+          }
+        `}</style>
       </main>
 
       <Footer />
