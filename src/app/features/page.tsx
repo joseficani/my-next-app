@@ -57,16 +57,9 @@ import Footer from "@/components/Footer/Footer";
 import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import {Navigation,Pagination,EffectCoverflow,Autoplay,Keyboard,Mousewheel,} from "swiper/modules";
 
-type FeatureCard = {
-  image: string;
-  title: string;
-  text: string;
-  category: string;
-  detailsTitle: string;
-  detailsText: string;
-};
+type FeatureCard = {image: string;title: string;text: string;category: string;detailsTitle: string;detailsText: string;};
 
 export default function FeaturesPage() {
   const featuresBanner = {
@@ -89,7 +82,6 @@ export default function FeaturesPage() {
     secondaryBtnClass:
       "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
   };
-
   const allFeatureCards: FeatureCard[] = [
     {
       image: "/images/teamwork.jpg",
@@ -173,7 +165,6 @@ export default function FeaturesPage() {
         "Subtle hover effects, soft borders, and consistent cards make the UI feel modern while staying readable and clean.",
     },
   ];
-
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const categories = useMemo(() => {
@@ -212,7 +203,6 @@ export default function FeaturesPage() {
       </select>
     </div>
   );
-
   const options = [
     "Pure Development",
     "Fast Development",
@@ -234,14 +224,11 @@ export default function FeaturesPage() {
     e.preventDefault();
     setSubmitted(selected);
   };
-
   return (
     <>
       <Navbar />
-
       <main className="min-h-screen bg-customBlue">
         <PageBanner {...featuresBanner} />
-
         <InfoGrid
           sectionTitle="Our Features"
           sectionSubtitle="3 main blocks (dynamic content)."
@@ -257,6 +244,7 @@ export default function FeaturesPage() {
               </h2>
               <p className="text-mutedText">Swipe through the features.</p>
             </div>
+
             <div className="rounded-2xl border border-softBorder bg-customCard/40 p-4">
               <div className="grid items-center gap-3 md:grid-cols-[56px_1fr_56px]">
                 <button
@@ -268,7 +256,14 @@ export default function FeaturesPage() {
                 </button>
                 <div className="min-w-0">
                   <Swiper
-                    modules={[Navigation, Pagination]}
+                    modules={[
+                      Navigation,
+                      Pagination,
+                      EffectCoverflow,
+                      Autoplay,
+                      Keyboard,
+                      Mousewheel,
+                    ]}
                     navigation={{
                       prevEl: ".features-prev",
                       nextEl: ".features-next",
@@ -284,6 +279,26 @@ export default function FeaturesPage() {
                       1024: { slidesPerView: 3 },
                     }}
                     className="features-swiper"
+                    loop
+                    speed={650}
+                    grabCursor
+                    centeredSlides
+                    watchSlidesProgress
+                    keyboard={{ enabled: true }}
+                    mousewheel={{ forceToAxis: true }}
+                    effect="coverflow"
+                    coverflowEffect={{
+                      rotate: 10,
+                      stretch: 0,
+                      depth: 120,
+                      modifier: 1,
+                      slideShadows: false,
+                    }}
+                    autoplay={{
+                      delay: 3500,
+                      disableOnInteraction: false,
+                      pauseOnMouseEnter: true,
+                    }}
                   >
                     {filteredCards.map((card, i) => (
                       <SwiperSlide key={`${card.title}-${i}`}>
@@ -351,6 +366,7 @@ export default function FeaturesPage() {
                     </label>
                   ))}
                 </div>
+
                 <button
                   type="submit"
                   className="mt-2 w-full rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40"
@@ -373,14 +389,57 @@ export default function FeaturesPage() {
           </div>
         </section>
         <style jsx global>{`
-          .features-swiper .swiper-wrapper {align-items: stretch;}
-          .features-swiper .swiper-slide {height: auto;display: flex; }
-          .features-swiper .swiper-slide > * { width: 100%; }
-          .features-swiper-pagination .swiper-pagination-bullet {width: 10px;height: 10px;border-radius: 999px;background: rgba(255, 255, 255, 0.25);opacity: 1; margin: 0 6px !important;transition: transform 200ms ease, background 200ms ease; }
-          .features-swiper-pagination .swiper-pagination-bullet:hover {transform: scale(1.15); background: rgba(255, 255, 255, 0.4); }
-          .features-swiper-pagination .swiper-pagination-bullet-active {width: 22px; background: rgba(59, 130, 246, 0.9); }
+          .features-swiper .swiper-wrapper {
+            align-items: stretch;
+          }
+          .features-swiper .swiper-slide {
+            height: auto;
+            display: flex;
+            transition: transform 250ms ease, opacity 250ms ease;
+          }
+          .features-swiper .swiper-slide > * {
+            width: 100%;
+          }
+
+          /* Make inactive slides softer, active slides sharper */
+          .features-swiper .swiper-slide {
+            opacity: 0.75;
+            transform: scale(0.98);
+          }
+          .features-swiper .swiper-slide.swiper-slide-active,
+          .features-swiper .swiper-slide.swiper-slide-next,
+          .features-swiper .swiper-slide.swiper-slide-prev {
+            opacity: 1;
+            transform: scale(1);
+          }
+
+          /* Pagination bullets style */
+          .features-swiper-pagination .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.25);
+            opacity: 1;
+            margin: 0 6px !important;
+            transition: transform 200ms ease, background 200ms ease, width 200ms ease;
+          }
+
+          .features-swiper-pagination .swiper-pagination-bullet:hover {
+            transform: scale(1.15);
+            background: rgba(255, 255, 255, 0.4);
+          }
+
+          .features-swiper-pagination .swiper-pagination-bullet-active {
+            width: 26px;
+            background: rgba(16, 185, 129, 0.95);
+          }
+
+          /* Disabled arrows */
           .features-prev.swiper-button-disabled,
-          .features-next.swiper-button-disabled {opacity: 0.45;cursor: not-allowed; }
+          .features-next.swiper-button-disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+          }
         `}</style>
       </main>
 
@@ -388,3 +447,4 @@ export default function FeaturesPage() {
     </>
   );
 }
+
