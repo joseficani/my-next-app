@@ -49,7 +49,6 @@
 //     </>
 //   );
 // }
-
 "use client";
 
 import { useMemo, useState } from "react";
@@ -258,70 +257,71 @@ export default function FeaturesPage() {
               </h2>
               <p className="text-mutedText">Swipe through the features.</p>
             </div>
-
             <div className="rounded-2xl border border-softBorder bg-customCard/40 p-4">
-              <div className="mb-4 flex items-center justify-end gap-2">
+              <div className="grid items-center gap-3 md:grid-cols-[56px_1fr_56px]">
                 <button
                   type="button"
-                  className="features-prev inline-flex h-10 w-10 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="features-prev inline-flex h-12 w-12 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
                   aria-label="Previous"
                 >
                   ‹
                 </button>
+                <div className="min-w-0">
+                  <Swiper
+                    modules={[Navigation, Pagination]}
+                    navigation={{
+                      prevEl: ".features-prev",
+                      nextEl: ".features-next",
+                    }}
+                    pagination={{
+                      clickable: true,
+                      el: ".features-swiper-pagination",
+                    }}
+                    spaceBetween={16}
+                    slidesPerView={1}
+                    breakpoints={{
+                      640: { slidesPerView: 2 },
+                      1024: { slidesPerView: 3 },
+                    }}
+                    className="features-swiper"
+                  >
+                    {filteredCards.map((card, i) => (
+                      <SwiperSlide key={`${card.title}-${i}`}>
+                        <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-softBorder bg-customCard/60 transition hover:bg-customCard/80">
+                          <div className="h-44 w-full overflow-hidden">
+                            <img
+                              src={card.image}
+                              alt={card.title}
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+
+                          <div className="flex flex-1 flex-col p-5">
+                            <h3 className="text-base font-semibold text-mainText">
+                              {card.title}
+                            </h3>
+                            <p className="mt-1 text-sm text-mutedText">
+                              {card.text}
+                            </p>
+                            <div className="mt-auto" />
+                          </div>
+                        </article>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  <div className="features-swiper-pagination mt-5 flex items-center justify-center" />
+                </div>
                 <button
                   type="button"
-                  className="features-next inline-flex h-10 w-10 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="features-next inline-flex h-12 w-12 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
                   aria-label="Next"
                 >
                   ›
                 </button>
               </div>
-
-              <Swiper
-                modules={[Navigation, Pagination]}
-                navigation={{
-                  prevEl: ".features-prev",
-                  nextEl: ".features-next",
-                }}
-                pagination={{
-                  clickable: true,
-                  el: ".features-swiper-pagination",
-                }}
-                spaceBetween={16}
-                slidesPerView={1}
-                breakpoints={{
-                  640: { slidesPerView: 2 },
-                  1024: { slidesPerView: 3 },
-                }}
-                className="features-swiper"
-              >
-                {filteredCards.map((card, i) => (
-                  <SwiperSlide key={`${card.title}-${i}`}>
-                    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-softBorder bg-customCard/60 transition hover:bg-customCard/80">
-                      <div className="h-44 w-full overflow-hidden">
-                        <img
-                          src={card.image}
-                          alt={card.title}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-
-                      <div className="flex flex-1 flex-col p-5">
-                        <h3 className="text-base font-semibold text-mainText">
-                          {card.title}
-                        </h3>
-                        <p className="mt-1 text-sm text-mutedText">{card.text}</p>
-                        <div className="mt-auto" />
-                      </div>
-                    </article>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <div className="features-swiper-pagination mt-5 flex items-center justify-center" />
             </div>
           </div>
         </section>
-
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
@@ -351,7 +351,6 @@ export default function FeaturesPage() {
                     </label>
                   ))}
                 </div>
-
                 <button
                   type="submit"
                   className="mt-2 w-full rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40"
@@ -374,42 +373,14 @@ export default function FeaturesPage() {
           </div>
         </section>
         <style jsx global>{`
-          .features-swiper .swiper-wrapper {
-            align-items: stretch;
-          }
-          .features-swiper .swiper-slide {
-            height: auto;
-            display: flex;
-          }
-          .features-swiper .swiper-slide > * {
-            width: 100%;
-          }
-
-          .features-swiper-pagination .swiper-pagination-bullet {
-            width: 10px;
-            height: 10px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.25);
-            opacity: 1;
-            margin: 0 6px !important;
-            transition: transform 200ms ease, background 200ms ease;
-          }
-
-          .features-swiper-pagination .swiper-pagination-bullet:hover {
-            transform: scale(1.15);
-            background: rgba(255, 255, 255, 0.4);
-          }
-
-          .features-swiper-pagination .swiper-pagination-bullet-active {
-            width: 22px;
-            background: rgba(59, 130, 246, 0.9); /* blue-ish */
-          }
-
+          .features-swiper .swiper-wrapper {align-items: stretch;}
+          .features-swiper .swiper-slide {height: auto;display: flex; }
+          .features-swiper .swiper-slide > * { width: 100%; }
+          .features-swiper-pagination .swiper-pagination-bullet {width: 10px;height: 10px;border-radius: 999px;background: rgba(255, 255, 255, 0.25);opacity: 1; margin: 0 6px !important;transition: transform 200ms ease, background 200ms ease; }
+          .features-swiper-pagination .swiper-pagination-bullet:hover {transform: scale(1.15); background: rgba(255, 255, 255, 0.4); }
+          .features-swiper-pagination .swiper-pagination-bullet-active {width: 22px; background: rgba(59, 130, 246, 0.9); }
           .features-prev.swiper-button-disabled,
-          .features-next.swiper-button-disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-          }
+          .features-next.swiper-button-disabled {opacity: 0.45;cursor: not-allowed; }
         `}</style>
       </main>
 
