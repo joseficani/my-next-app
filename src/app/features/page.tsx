@@ -58,8 +58,20 @@ import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {Navigation,Pagination,EffectCoverflow,Autoplay,Keyboard,Mousewheel,} from "swiper/modules";
+import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 
-type FeatureCard = {image: string;title: string;text: string;category: string;detailsTitle: string;detailsText: string;};
+type FeatureCard = {
+  image: string;
+  title: string;
+  text: string;
+  category: string;
+  detailsTitle: string;
+  detailsText: string;
+};
 
 export default function FeaturesPage() {
   const featuresBanner = {
@@ -68,20 +80,18 @@ export default function FeaturesPage() {
     title: "Features that make your site look modern",
     subtitle:
       "Same layout, responsive container, Team Collaboration, and Pure Development.",
-
     primaryText: "Go to Contact",
     primaryHref: "/contact",
     secondaryText: "Back Home",
     secondaryHref: "/",
     center: true,
     tight: true,
-
     primaryBtnClass:
       "inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/40",
-
     secondaryBtnClass:
       "inline-flex items-center justify-center rounded-xl border border-softBorder bg-customCard/60 px-5 py-3 text-sm font-semibold text-mainText backdrop-blur transition hover:bg-customCard/80",
   };
+
   const allFeatureCards: FeatureCard[] = [
     {
       image: "/images/teamwork.jpg",
@@ -90,7 +100,7 @@ export default function FeaturesPage() {
       category: "Development",
       detailsTitle: "Pure Development",
       detailsText:
-        "This feature focuses on clean structure and reusable UI so you can update the project faster without breaking layout. It keeps your components consistent across pages.",
+        "Clean structure and reusable UI so you can update faster without breaking layout. It keeps components consistent across pages.",
     },
     {
       image: "/images/coding.jpg",
@@ -99,7 +109,7 @@ export default function FeaturesPage() {
       category: "Development",
       detailsTitle: "Fast Development",
       detailsText:
-        "A predictable folder structure + reusable components makes edits quick. You can add new sections, pages, and styles without rewriting everything.",
+        "A predictable folder structure + reusable components makes edits quick. Add new sections and pages without rewriting everything.",
     },
     {
       image: "/images/design.jpg",
@@ -108,7 +118,7 @@ export default function FeaturesPage() {
       category: "UI",
       detailsTitle: "Responsive UI",
       detailsText:
-        "Your layout stays aligned on desktop, tablet, and mobile. The max-width container ensures the banner text lines up with the sections below.",
+        "Your layout stays aligned on desktop, tablet, and mobile. The max-width container ensures the banner lines up with the sections below.",
     },
     {
       image: "/images/coding.jpg",
@@ -117,7 +127,7 @@ export default function FeaturesPage() {
       category: "Navigation",
       detailsTitle: "Simple Navigation",
       detailsText:
-        "Users can move between pages quickly. Your active-link styling makes it clear which page they are currently viewing.",
+        "Users can move between pages quickly. Active-link styling makes it clear which page they are viewing.",
     },
     {
       image: "/images/teamwork.jpg",
@@ -126,7 +136,7 @@ export default function FeaturesPage() {
       category: "Components",
       detailsTitle: "Reusable Components",
       detailsText:
-        "Instead of creating 3 different banners, you pass props (image, title, buttons, classes). This keeps the code clean and scalable.",
+        "Instead of making different banners, you pass props (image, title, buttons). This keeps code clean and scalable.",
     },
     {
       image: "/images/design.jpg",
@@ -144,7 +154,7 @@ export default function FeaturesPage() {
       category: "Collaboration",
       detailsTitle: "Team Collaboration",
       detailsText:
-        "When multiple people work on the project, shared components avoid duplication and reduce bugs. Everyone follows the same UI rules.",
+        "Shared components avoid duplication and reduce bugs when multiple people work on the project.",
     },
     {
       image: "/images/coding.jpg",
@@ -153,7 +163,7 @@ export default function FeaturesPage() {
       category: "Development",
       detailsTitle: "Maintainable Code",
       detailsText:
-        "Your code is easier to maintain because it’s modular. Updating one component updates multiple pages automatically.",
+        "Modular code is easier to maintain. Updating one component updates multiple pages automatically.",
     },
     {
       image: "/images/design.jpg",
@@ -162,9 +172,10 @@ export default function FeaturesPage() {
       category: "UI",
       detailsTitle: "Modern Styling",
       detailsText:
-        "Subtle hover effects, soft borders, and consistent cards make the UI feel modern while staying readable and clean.",
+        "Subtle hover effects, soft borders, and consistent cards make the UI modern while staying readable and clean.",
     },
   ];
+
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const categories = useMemo(() => {
@@ -172,11 +183,10 @@ export default function FeaturesPage() {
   }, [allFeatureCards]);
 
   const filteredCards = useMemo(() => {
-    let list = [...allFeatureCards];
-
-    if (selectedCategory !== "all") {
-      list = list.filter((x) => x.category === selectedCategory);
-    }
+    const list =
+      selectedCategory === "all"
+        ? allFeatureCards
+        : allFeatureCards.filter((x) => x.category === selectedCategory);
 
     return list.map((x) => ({
       image: x.image,
@@ -203,6 +213,7 @@ export default function FeaturesPage() {
       </select>
     </div>
   );
+
   const options = [
     "Pure Development",
     "Fast Development",
@@ -210,7 +221,6 @@ export default function FeaturesPage() {
     "Team Collaboration",
     "Modern UI",
   ];
-
   const [selected, setSelected] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<string[]>([]);
 
@@ -224,14 +234,19 @@ export default function FeaturesPage() {
     e.preventDefault();
     setSubmitted(selected);
   };
+  const [open, setOpen] = useState<number>(1);
+  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+
   return (
     <>
       <Navbar />
+
       <main className="min-h-screen bg-customBlue">
         <PageBanner {...featuresBanner} />
+
         <InfoGrid
           sectionTitle="Our Features"
-          sectionSubtitle="3 main blocks (dynamic content)."
+          sectionSubtitle="Dynamic cards + filter."
           cards={filteredCards}
           cardClass="overflow-hidden rounded-2xl border border-softBorder bg-customCard/70 transition hover:bg-customCard/80"
           rightSlot={rightSlot}
@@ -254,6 +269,7 @@ export default function FeaturesPage() {
                 >
                   ‹
                 </button>
+
                 <div className="min-w-0">
                   <Swiper
                     modules={[
@@ -324,8 +340,10 @@ export default function FeaturesPage() {
                       </SwiperSlide>
                     ))}
                   </Swiper>
+
                   <div className="features-swiper-pagination mt-5 flex items-center justify-center" />
                 </div>
+
                 <button
                   type="button"
                   className="features-next inline-flex h-12 w-12 items-center justify-center rounded-xl border border-softBorder bg-customCard/60 text-mainText transition hover:bg-customCard/80 focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -334,6 +352,49 @@ export default function FeaturesPage() {
                   ›
                 </button>
               </div>
+            </div>
+          </div>
+        </section>
+        <section className="py-14">
+          <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+            <div className="mb-6 max-w-2xl">
+              <h2 className="text-2xl font-extrabold text-mainText">
+                Feature Details (Accordion)
+              </h2>
+              <p className="text-mutedText">Click a title to expand.</p>
+            </div>
+
+            <div className="rounded-2xl border border-softBorder bg-customCard/40 p-4">
+            {allFeatureCards.slice(0, 3).map((item, idx) => {
+  const value = idx + 1;
+  const accId = `feature-acc-${value}`;
+
+  return (
+    <Accordion
+      key={accId}
+      id={accId}
+      open={open === value}
+      className="mb-3 rounded-2xl border border-softBorder bg-customCard/60 px-4"
+    >
+      <div
+        onClick={() => handleOpen(value)}
+        className="cursor-pointer"
+      >
+        <AccordionHeader
+          id={`${accId}-header`}
+          title={item.detailsTitle}
+          className="border-b-0 text-mainText"
+        >
+          {item.detailsTitle}
+        </AccordionHeader>
+      </div>
+
+      <AccordionBody className="pt-0 text-mutedText">
+        {item.detailsText}
+      </AccordionBody>
+    </Accordion>
+  );
+})}
             </div>
           </div>
         </section>
@@ -388,6 +449,7 @@ export default function FeaturesPage() {
             </div>
           </div>
         </section>
+
         <style jsx global>{`
           .features-swiper .swiper-wrapper {
             align-items: stretch;
@@ -401,7 +463,6 @@ export default function FeaturesPage() {
             width: 100%;
           }
 
-          /* Make inactive slides softer, active slides sharper */
           .features-swiper .swiper-slide {
             opacity: 0.75;
             transform: scale(0.98);
@@ -413,7 +474,6 @@ export default function FeaturesPage() {
             transform: scale(1);
           }
 
-          /* Pagination bullets style */
           .features-swiper-pagination .swiper-pagination-bullet {
             width: 10px;
             height: 10px;
@@ -421,20 +481,18 @@ export default function FeaturesPage() {
             background: rgba(255, 255, 255, 0.25);
             opacity: 1;
             margin: 0 6px !important;
-            transition: transform 200ms ease, background 200ms ease, width 200ms ease;
+            transition: transform 200ms ease, background 200ms ease,
+              width 200ms ease;
           }
-
           .features-swiper-pagination .swiper-pagination-bullet:hover {
             transform: scale(1.15);
             background: rgba(255, 255, 255, 0.4);
           }
-
           .features-swiper-pagination .swiper-pagination-bullet-active {
             width: 26px;
             background: rgba(16, 185, 129, 0.95);
           }
 
-          /* Disabled arrows */
           .features-prev.swiper-button-disabled,
           .features-next.swiper-button-disabled {
             opacity: 0.45;
@@ -447,4 +505,3 @@ export default function FeaturesPage() {
     </>
   );
 }
-
