@@ -370,29 +370,34 @@ export default function FeaturesPage() {
   const accId = `feature-acc-${value}`;
 
   return (
-    <Accordion
-      key={accId}
-      id={accId}
-      open={open === value}
-      className="mb-3 rounded-2xl border border-softBorder bg-customCard/60 px-4"
-    >
-      <div
-        onClick={() => handleOpen(value)}
-        className="cursor-pointer"
-      >
-        <AccordionHeader
-          id={`${accId}-header`}
-          title={item.detailsTitle}
-          className="border-b-0 text-mainText"
-        >
-          {item.detailsTitle}
-        </AccordionHeader>
-      </div>
+   <Accordion
+                    key={accId}
+                    id={accId}
+                    open={open === value}
+                    className="mb-3 rounded-2xl border border-softBorder bg-customCard/60 px-4"
+                    placeholder={undefined}
+                    onResize={undefined}
+                    onResizeCapture={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    <AccordionHeader
+                      id={`${accId}-header`}
+                      onClick={() => handleOpen(value)}
+                      className="border-b-0 text-mainText cursor-pointer"
+                      placeholder={undefined}
+                      onResize={undefined}
+                      onResizeCapture={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      {item.detailsTitle}
+                    </AccordionHeader>
 
-      <AccordionBody className="pt-0 text-mutedText">
-        {item.detailsText}
-      </AccordionBody>
-    </Accordion>
+                    <AccordionBody className="pt-0 text-mutedText">
+                      {item.detailsText}
+                    </AccordionBody>
+                  </Accordion>
   );
 })}
             </div>
