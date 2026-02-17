@@ -49,6 +49,7 @@
 //     </>
 //   );
 // }
+
 "use client";
 
 import { useMemo, useState } from "react";
@@ -58,7 +59,7 @@ import PageBanner from "@/components/PageBanner/PageBanner";
 import InfoGrid from "@/components/InfoGrid/InfoGrid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {Navigation,Pagination,EffectCoverflow,Autoplay,Keyboard,Mousewheel,} from "swiper/modules";
-import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
+import {Accordion,AccordionHeader,AccordionBody,} from "@material-tailwind/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -234,6 +235,7 @@ export default function FeaturesPage() {
     e.preventDefault();
     setSubmitted(selected);
   };
+
   const [open, setOpen] = useState<number>(1);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
@@ -251,6 +253,7 @@ export default function FeaturesPage() {
           cardClass="overflow-hidden rounded-2xl border border-softBorder bg-customCard/70 transition hover:bg-customCard/80"
           rightSlot={rightSlot}
         />
+
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
@@ -355,6 +358,7 @@ export default function FeaturesPage() {
             </div>
           </div>
         </section>
+
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
@@ -365,15 +369,16 @@ export default function FeaturesPage() {
             </div>
 
             <div className="rounded-2xl border border-softBorder bg-customCard/40 p-4">
-            {allFeatureCards.slice(0, 3).map((item, idx) => {
-  const value = idx + 1;
-  const accId = `feature-acc-${value}`;
+              {allFeatureCards.slice(0, 3).map((item, idx) => {
+                const value = idx + 1;
+                const accId = `feature-acc-${value}`;
+                const isActive = open === value;
 
-  return (
-   <Accordion
+                return (
+                  <Accordion
                     key={accId}
                     id={accId}
-                    open={open === value}
+                    open={isActive}
                     className="mb-3 rounded-2xl border border-softBorder bg-customCard/60 px-4"
                     placeholder={undefined}
                     onResize={undefined}
@@ -384,25 +389,39 @@ export default function FeaturesPage() {
                     <AccordionHeader
                       id={`${accId}-header`}
                       onClick={() => handleOpen(value)}
-                      className="border-b-0 text-mainText cursor-pointer"
+                      className={`border-b-0 cursor-pointer ${
+                        isActive ? "text-emerald-400" : "text-mainText"
+                      }`}
                       placeholder={undefined}
                       onResize={undefined}
                       onResizeCapture={undefined}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
                     >
-                      {item.detailsTitle}
+                      <span className="flex w-full items-center justify-between gap-3">
+                        <span>{item.detailsTitle}</span>
+                        <span
+                          aria-hidden="true"
+                          className={`text-lg transition-transform duration-200 ${
+                            isActive
+                              ? "rotate-180 text-emerald-400"
+                              : "rotate-0 text-mutedText"
+                          }`}
+                        >
+                          ▾
+                        </span>
+                      </span>
                     </AccordionHeader>
-
                     <AccordionBody className="pt-0 text-mutedText">
                       {item.detailsText}
                     </AccordionBody>
                   </Accordion>
-  );
-})}
+                );
+              })}
             </div>
           </div>
         </section>
+
         <section className="py-14">
           <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
             <div className="mb-6 max-w-2xl">
